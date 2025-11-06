@@ -1,7 +1,40 @@
 import { GoogleGenAI, Type } from '@google/genai';
-import { SoapNote } from '../types';
+import { SoapNote } from '../../types';
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const isBrowser = typeof window !== 'undefined';
+
+// If a backend URL is provided at build time, the frontend will call the backend route instead of talking to Gemini directly.
+const backendUrl = (typeof import.meta !== 'undefined' ? (import.meta as any)?.env?.VITE_BACKEND_URL : undefined) as string | undefined;
+
+const getAiClient = () => {
+    if (isBrowser && backendUrl) {
+        // In browser + backend configured, we'll proxy via server; return a thin client that calls the server API.
+        return {
+            models: {
+                generateContent: async ({ contents }: { contents: string }) => {
+                    const resp = await fetch(`${backendUrl}/api/generate`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ transcript: contents }),
+                    });
+                    const json = await resp.json();
+                    return { text: JSON.stringify(json.note) };
+                },
+            },
+        } as unknown as ReturnType<typeof GoogleGenAI>;
+    }
+
+    // Server-side direct client (uses process.env)
+    const nodeKey = typeof process !== 'undefined' ? (process.env as any)?.API_KEY || (process.env as any)?.GEMINI_API_KEY : undefined;
+    const viteKey = (typeof import.meta !== 'undefined' ? (import.meta as any)?.env?.VITE_GEMINI_API_KEY : undefined) as string | undefined;
+
+    const apiKey = nodeKey || viteKey;
+    if (!apiKey) {
+        throw new Error('Gemini API key not found. Set GEMINI_API_KEY (server) or VITE_GEMINI_API_KEY (client) before calling the API. For production, prefer GEMINI_API_KEY on the server only.');
+    }
+
+    return new GoogleGenAI({ apiKey });
+};
 
 const responseSchema = {
   type: Type.OBJECT,
@@ -102,6 +135,7 @@ Your output must be only the JSON object.`;
 
 export const generateSoapNote = async (transcript: string): Promise<SoapNote> => {
     try {
+        const ai = getAiClient();
         const response = await ai.models.generateContent({
             model: 'gemini-2.5-flash',
             contents: transcript,
@@ -111,10 +145,10 @@ export const generateSoapNote = async (transcript: string): Promise<SoapNote> =>
                 responseSchema,
             },
         });
-        
+
         const jsonText = response.text.trim();
         const parsedNote = JSON.parse(jsonText);
-        
+
         return parsedNote as SoapNote;
 
     } catch (error) {
