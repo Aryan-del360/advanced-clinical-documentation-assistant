@@ -1,0 +1,7 @@
+{
+  "name": "Advanced Clinical Documentation Assistant",
+  "description": "An AI-powered clinical documentation assistant that transcribes doctor-patient conversations and generates structured SOAP notes with clinical validation, interaction checks, and ICD-10 suggestions.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
