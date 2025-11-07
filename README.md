@@ -6,7 +6,7 @@
 
 This contains everything you need to run your app locally.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1a5NIQrUWfNsSF8oERZBXpeCKAg2OylmB
+View your app in AI Studio: [https://ai.studio/apps/drive/1a5NIQrUWfNsSF8oERZBXpeCKAg2OylmB](https://aistudio.google.com/apps/drive/1a5NIQrUWfNsSF8oERZBXpeCKAg2OylmB?showAssistant=true&showPreview=true)
 
 ## Run Locally
 
@@ -24,7 +24,7 @@ View your app in AI Studio: https://ai.studio/apps/drive/1a5NIQrUWfNsSF8oERZBXpe
 A lightweight web app that converts clinical conversation transcripts into structured SOAP notes using Google Gemini. Built with React + Vite, hosted on Cloud Run (backend proxy for Gemini), and packaged for mobile with Capacitor.
 
 Demo: https://acda-906934175275.us-central1.run.app
-AI Studio preview: https://ai.studio/apps/drive/1a5NIQrUWfNsSF8oERZBXpeCKAg2OylmB
+AI Studio preview: [https://ai.studio/apps/drive/1a5NIQrUWfNsSF8oERZBXpeCKAg2OylmB](https://aistudio.google.com/apps/drive/1a5NIQrUWfNsSF8oERZBXpeCKAg2OylmB?showAssistant=true&showPreview=true)
 
 Category tags: AI, Healthcare, Cloud Run, Google Gemini, PWA
 
