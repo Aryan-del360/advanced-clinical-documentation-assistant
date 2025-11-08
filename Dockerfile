@@ -13,6 +13,8 @@ WORKDIR /app
 COPY --from=build /app/package.json ./package.json
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/server.js ./server.js
+COPY --from=build /app/server-api.js ./server-api.js
+COPY --from=build /app/services ./services
 # Install only production dependencies in the runtime image
 RUN npm install --omit=dev --no-audit --no-fund
 EXPOSE 8080
