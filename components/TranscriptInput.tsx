@@ -25,7 +25,7 @@ export const TranscriptInput: React.FC<TranscriptInputProps> = ({
   isSpeechRecognitionSupported,
 }) => {
   return (
-    <div className="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col h-full">
+    <div className="bg-white p-6 rounded-xl shadow-lg border border-slate-100 flex flex-col h-full">
       <div className="flex items-start justify-between mb-3">
         <div>
           <h2 className="text-lg font-semibold text-slate-700">Consultation Input</h2>
@@ -36,10 +36,11 @@ export const TranscriptInput: React.FC<TranscriptInputProps> = ({
 
       <div className="flex-grow flex flex-col">
           <textarea
+            aria-label="Consultation transcript"
             value={value}
             onChange={onChange}
             placeholder="Paste consultation text, or use the microphone to transcribe a conversation..."
-            className="w-full flex-grow p-4 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-shadow duration-200 resize-none min-h-[260px] lg:min-h-[380px] h-full"
+            className="w-full flex-grow p-4 border border-slate-200 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-shadow duration-200 resize-none min-h-[260px] lg:min-h-[360px] h-full placeholder:text-slate-400"
             disabled={isLoading || isRecording}
           />
       </div>
@@ -59,6 +60,7 @@ export const TranscriptInput: React.FC<TranscriptInputProps> = ({
                 <button
                     onClick={onToggleRecording}
                     disabled={isLoading}
+                    aria-pressed={isRecording}
                     className={`inline-flex items-center justify-center px-4 py-3 border text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 disabled:opacity-50 transition-colors ${
                       isRecording 
                       ? 'bg-red-600 text-white hover:bg-red-700 border-transparent relative' 
@@ -67,7 +69,7 @@ export const TranscriptInput: React.FC<TranscriptInputProps> = ({
                 >
                     {isRecording ? <StopCircleIcon className="h-5 w-5 mr-2" /> : <MicrophoneIcon className="h-5 w-5 mr-2" />}
                     {isRecording ? 'Stop' : 'Record'}
-                     {isRecording && <span className="absolute h-3 w-3 rounded-full bg-red-400 top-2 right-2 animate-pulse-red"></span>}
+                     {isRecording && <span className="absolute h-3 w-3 rounded-full bg-red-400 top-2 right-2 animate-pulse-red" aria-hidden />}
                 </button>
               )}
               <button
