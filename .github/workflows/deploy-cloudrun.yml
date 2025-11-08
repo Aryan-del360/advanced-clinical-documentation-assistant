@@ -1,0 +1,38 @@
+name: Deploy to Cloud Run
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch: {}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          version: '436.0.0'
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: ${{ secrets.GCP_PROJECT }}
+
+      - name: Configure Docker auth for GCR
+        run: gcloud auth configure-docker --quiet
+
+      - name: Build container image
+        run: |
+          IMAGE=gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.CLOUD_RUN_SERVICE || 'acda' }}:${{ github.sha }}
+          gcloud builds submit --tag "$IMAGE" .
+          echo "IMAGE=$IMAGE" >> $GITHUB_ENV
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy ${{ secrets.CLOUD_RUN_SERVICE || 'acda' }} \
+            --image "$IMAGE" \
+            --region "${{ secrets.GCP_REGION || 'us-central1' }}" \
+            --platform managed \
+            --allow-unauthenticated

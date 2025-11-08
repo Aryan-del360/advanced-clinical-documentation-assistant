@@ -1,20 +1,35 @@
+/* Load Inter font via Google Fonts for a modern professional look */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
 /* Minimal app styles so the preview loads with Tailwind fallback visuals */
 :root{
   --bg: #f8fafc;
+  --surface: #ffffff;
+  --muted: #64748b;
   --text: #0f172a;
+  --accent: #0ea5a4; /* teal-400 */
+  --container-max: 1100px;
+  --radius-lg: 12px;
 }
+
 html,body,#root{height:100%;}
-body{background:var(--bg);color:var(--text);font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
-.container{max-width:1100px;margin-left:auto;margin-right:auto;padding-left:16px;padding-right:16px}
+body{background:var(--bg);color:var(--text);font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
+.container{max-width:var(--container-max);margin-left:auto;margin-right:auto;padding-left:16px;padding-right:16px}
+
+/* Subtle elevation and transitions */
+*{transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease, box-shadow 200ms ease;}
+.button-smooth{transition: transform 120ms ease, box-shadow 160ms ease}
+.button-smooth:active{transform:translateY(1px)}
+
 /* Ensure content is readable if Tailwind CDN fails */
 button{cursor:pointer}
 textarea{font-family:inherit}
 
 /* small utility to center preview and make it usable */
 .min-h-screen{min-height:100vh}
-.rounded-xl{border-radius:12px}
+.rounded-xl{border-radius:var(--radius-lg)}
 .shadow-md{box-shadow:0 6px 18px rgba(15,23,42,0.06)}
-.bg-white{background:white}
+.bg-white{background:var(--surface)}
 .bg-slate-50{background:#f8fafc}
 .text-slate-700{color:#334155}
 .text-slate-500{color:#6b7280}
@@ -35,6 +50,17 @@ textarea{font-family:inherit}
 .font-semibold{font-weight:600}
 .border{border:1px solid #e6eef6}
 .rounded-lg{border-radius:8px}
+
+/* Small helper for badges */
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 8px;border-radius:9999px;font-size:12px;background:linear-gradient(90deg, rgba(14,165,164,0.08), rgba(14,165,164,0.04));color:var(--accent);border:1px solid rgba(14,165,164,0.12)}
+
+/* Fade-in for major sections */
+.fade-in{opacity:0;transform:translateY(6px);animation:fadeInUp 420ms ease forwards}
+@keyframes fadeInUp{to{opacity:1;transform:none}}
+
+/* subtle focus ring for keyboard navigation */
+:focus{outline:none}
+:focus-visible{box-shadow:0 0 0 3px rgba(14,165,164,0.12);border-radius:6px}
 
 /* Make images responsive */
 img{max-width:100%;height:auto}

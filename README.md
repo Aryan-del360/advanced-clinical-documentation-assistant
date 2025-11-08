@@ -151,3 +151,19 @@ MIT
 
 ## Contact / Authors
 Aryan-del360
+
+## What's changed (UI refresh)
+I performed a focused visual refresh to give ACDA a modern, professional look suitable for demos and hackathons. Changes include:
+
+- Modern header with compact branding and a subtle search input
+- Redesigned transcript input panel with accessible controls, recording toggle, and clear/example actions
+- New SOAP note display with formatted & JSON views, copy and export-to-PDF actions, and improved alerts for interactions/contraindications
+- Global visual polish: Inter font, refined spacing, subtle transitions and improved color tokens
+
+To preview these changes locally:
+
+1. npm install
+2. npm run dev
+3. Open http://localhost:5173 in your browser (Vite dev) or run `npm run build && npm start` and open http://localhost:8080
+
+If you want me to commit & push these UI changes and redeploy to Cloud Run, say "commit and deploy". If you want an automated APK build workflow, say "add CI APK build".
