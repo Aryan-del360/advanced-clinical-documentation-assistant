@@ -34,10 +34,7 @@ Category tags: AI, Healthcare, Cloud Run, Google Gemini, PWA
 ACDA ingests clinician–patient conversation transcripts and generates structured SOAP (Subjective, Objective, Assessment, Plan) notes in JSON and human-readable formats. It uses Gemini through a secure backend to avoid exposing API keys in the client.
 
 ## What’s included
-- Frontend: React + Vite app (UI for transcript input and SOAP output)
-- Backend: small Express server to proxy Gemini requests and hold the secret key
-- Dockerfile for Cloud Run deployment
-- Capacitor scripts to generate an Android project and build APKs
+O created it with the help from Google AI studio
 
 ---
 
