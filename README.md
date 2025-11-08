@@ -33,9 +33,6 @@ Category tags: AI, Healthcare, Cloud Run, Google Gemini, PWA
 ## Elevator pitch
 ACDA ingests clinician–patient conversation transcripts and generates structured SOAP (Subjective, Objective, Assessment, Plan) notes in JSON and human-readable formats. It uses Gemini through a secure backend to avoid exposing API keys in the client.
 
-## What’s included
-O created it with the help from Google AI studio
-
 ---
 
 ## Architecture (one-line)
